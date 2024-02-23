@@ -13,7 +13,6 @@ import {
 let sessionCounter = 0;
 let totalCounter = localStorage.getItem("totalCounter") || 0;
 let previousIndex = -1;
-let previousIndex = -1;
 
 const sessionCounterElement = document.getElementById("session-counter");
 const totalCounterElement = document.getElementById("total-counter");
@@ -111,7 +110,9 @@ function nextCharacter() {
 
   const kanaArray = getKanaArray();
   let charIndex = Math.floor(Math.random() * kanaArray.length);
-  while (charIndex === previousIndex) charIndex = Math.floor(Math.random() * kanaArray.length);
+  while (charIndex === previousIndex) {
+    charIndex = Math.floor(Math.random() * kanaArray.length);
+  }
   previousIndex = charIndex;
   const randomCharacter = kanaArray[charIndex];
   const correctRomaji = romajiArray[charIndex];
@@ -120,8 +121,10 @@ function nextCharacter() {
 
   const incorrectAnswers = [];
   while (incorrectAnswers.length < 9) {
-    const randomIncorrectIndex = Math.floor(Math.random() * romajiArray.length);
-    const randomIncorrectRomaji = romajiArray[randomIncorrectIndex];
+    const randomIncorrectIndex = Math.floor(
+      Math.random() * standardRomaji.length,
+    );
+    const randomIncorrectRomaji = standardRomaji[randomIncorrectIndex];
 
     if (
       randomIncorrectRomaji !== correctRomaji &&
