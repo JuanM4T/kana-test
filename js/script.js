@@ -99,30 +99,64 @@ function createOptionElement(option, correctRomaji) {
 }
 
 function nextCharacter() {
-  let romajiArray = [];
-  if (enabledOptions & OPTION_COMBO) romajiArray = romajiArray.concat(comboRomaji);
-  if (enabledOptions & OPTION_DAKUON) romajiArray = romajiArray.concat(dakuonRomaji);
-  if ((enabledOptions & OPTION_STANDARD) || romajiArray.length === 0) {
-    romajiArray = romajiArray.concat(standardRomaji);
-  }
-
   const kanaArray = getKanaArray();
   let charIndex = Math.floor(Math.random() * kanaArray.length);
   while (charIndex === previousIndex) {
     charIndex = Math.floor(Math.random() * kanaArray.length);
   }
   previousIndex = charIndex;
+
+  let romajiArray = [];
+  let correctAnswerCategory;
+
+  if (enabledOptions & OPTION_COMBO) {
+    romajiArray = romajiArray.concat(comboRomaji);
+    if (charIndex < romajiArray.length) {
+      correctAnswerCategory = OPTION_COMBO;
+    }
+  }
+
+  if (enabledOptions & OPTION_DAKUON && correctAnswerCategory === undefined) {
+    romajiArray = romajiArray.concat(dakuonRomaji);
+    if (charIndex < romajiArray.length) {
+      correctAnswerCategory = OPTION_DAKUON;
+    }
+  }
+
+  if ((enabledOptions & OPTION_STANDARD || romajiArray.length === 0) && correctAnswerCategory === undefined) {
+    romajiArray = romajiArray.concat(standardRomaji);
+    if (charIndex < romajiArray.length) {
+      correctAnswerCategory = OPTION_STANDARD;
+    }
+  }
+
   const randomCharacter = kanaArray[charIndex];
   const correctRomaji = romajiArray[charIndex];
 
   optionsElement.innerHTML = "";
 
   const incorrectAnswers = [];
-  while (incorrectAnswers.length < 9) {
-    const randomIncorrectIndex = Math.floor(
-      Math.random() * standardRomaji.length,
-    );
-    const randomIncorrectRomaji = standardRomaji[randomIncorrectIndex];
+  let categoryRomaji;
+
+  switch(correctAnswerCategory) {
+    case OPTION_STANDARD:
+      categoryRomaji = standardRomaji;
+      break;
+    case OPTION_DAKUON:
+      categoryRomaji = dakuonRomaji;
+      break;
+    case OPTION_COMBO:
+      categoryRomaji = comboRomaji;
+      break;
+    default:
+      categoryRomaji = standardRomaji;
+  }
+
+while (incorrectAnswers.length < 9) {
+  const randomIncorrectIndex = Math.floor(
+    Math.random() * categoryRomaji.length,
+  );
+  const randomIncorrectRomaji = categoryRomaji[randomIncorrectIndex];
 
     if (
       randomIncorrectRomaji !== correctRomaji &&
