@@ -27,41 +27,39 @@ const standardCheckbox = document.getElementById("standard-checkbox");
 const dakuonCheckbox = document.getElementById("dakuon-checkbox");
 const comboCheckbox = document.getElementById("combo-checkbox");
 
-let enableStandard = true;
-let enableDakuon = false;
-let enableCombo = false;
+let enabledOptions = 1; // 1 (binary 001) means only standard is enabled
 
-standardCheckbox.addEventListener("change", toggleStandard);
-dakuonCheckbox.addEventListener("change", toggleDakuon);
-comboCheckbox.addEventListener("change", toggleCombo);
+const OPTION_STANDARD = 1; // binary 001
+const OPTION_DAKUON = 2; // binary 010
+const OPTION_COMBO = 4; // binary 100
 
-function toggleStandard() {
-  enableStandard = standardCheckbox.checked;
-  nextCharacter();
-}
+standardCheckbox.addEventListener("change", () => toggleOption(OPTION_STANDARD));
+dakuonCheckbox.addEventListener("change", () => toggleOption(OPTION_DAKUON));
+comboCheckbox.addEventListener("change", () => toggleOption(OPTION_COMBO));
 
-function toggleDakuon() {
-  enableDakuon = dakuonCheckbox.checked;
-  nextCharacter();
-}
-
-function toggleCombo() {
-  enableCombo = comboCheckbox.checked;
+function toggleOption(option) {
+  if (enabledOptions & option) {
+    // if option is enabled, disable it
+    enabledOptions &= ~option;
+  } else {
+    // if option is disabled, enable it
+    enabledOptions |= option;
+  }
   nextCharacter();
 }
 
 function getKanaArray() {
   let selectedKana = [];
   if (syllabary === "hiragana") {
-    if (enableCombo) selectedKana = selectedKana.concat(comboHiragana);
-    if (enableDakuon) selectedKana = selectedKana.concat(dakuonHiragana);
-    if (enableStandard || selectedKana.length === 0) {
+    if (enabledOptions & OPTION_COMBO) selectedKana = selectedKana.concat(comboHiragana);
+    if (enabledOptions & OPTION_DAKUON) selectedKana = selectedKana.concat(dakuonHiragana);
+    if ((enabledOptions & OPTION_STANDARD) || selectedKana.length === 0) {
       selectedKana = selectedKana.concat(standardHiragana);
     }
   } else if (syllabary === "katakana") {
-    if (enableCombo) selectedKana = selectedKana.concat(comboKatakana);
-    if (enableDakuon) selectedKana = selectedKana.concat(dakuonKatakana);
-    if (enableStandard || selectedKana.length === 0) {
+    if (enabledOptions & OPTION_COMBO) selectedKana = selectedKana.concat(comboKatakana);
+    if (enabledOptions & OPTION_DAKUON) selectedKana = selectedKana.concat(dakuonKatakana);
+    if ((enabledOptions & OPTION_STANDARD) || selectedKana.length === 0) {
       selectedKana = selectedKana.concat(standardKatakana);
     }
   }
@@ -102,9 +100,9 @@ function createOptionElement(option, correctRomaji) {
 
 function nextCharacter() {
   let romajiArray = [];
-  if (enableCombo) romajiArray = romajiArray.concat(comboRomaji);
-  if (enableDakuon) romajiArray = romajiArray.concat(dakuonRomaji);
-  if (enableStandard || romajiArray.length === 0) {
+  if (enabledOptions & OPTION_COMBO) romajiArray = romajiArray.concat(comboRomaji);
+  if (enabledOptions & OPTION_DAKUON) romajiArray = romajiArray.concat(dakuonRomaji);
+  if ((enabledOptions & OPTION_STANDARD) || romajiArray.length === 0) {
     romajiArray = romajiArray.concat(standardRomaji);
   }
 
