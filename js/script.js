@@ -110,8 +110,9 @@ function nextCharacter() {
   }
 
   const kanaArray = getKanaArray();
+  let charIndex = Math.floor(Math.random() * kanaArray.length);
   while (charIndex === previousIndex) {
-    const charIndex = Math.floor(Math.random() * kanaArray.length);
+    charIndex = Math.floor(Math.random() * kanaArray.length);
   }
   previousIndex = charIndex;
   const randomCharacter = kanaArray[charIndex];
