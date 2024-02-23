@@ -13,6 +13,7 @@ import {
 let sessionCounter = 0;
 let totalCounter = localStorage.getItem("totalCounter") || 0;
 let previousIndex = -1;
+let previousIndex = -1;
 
 const sessionCounterElement = document.getElementById("session-counter");
 const totalCounterElement = document.getElementById("total-counter");
@@ -109,9 +110,8 @@ function nextCharacter() {
   }
 
   const kanaArray = getKanaArray();
-  let charIndex = Math.floor(Math.random() * kanaArray.length);
   while (charIndex === previousIndex) {
-    charIndex = Math.floor(Math.random() * kanaArray.length);
+    const charIndex = Math.floor(Math.random() * kanaArray.length);
   }
   previousIndex = charIndex;
   const randomCharacter = kanaArray[charIndex];
