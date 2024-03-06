@@ -4,20 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kana Test</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/styles.css" />
     <style>
       main {
-        display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 10px;
+        display: flex;
 
-        > a {
-          padding: 64px 48px;
-          border-radius: 100px;
-          font-size: 4em;
+        & > a {
           color: #666;
+          border-radius: 100px;
+          padding: 64px 48px;
+          font-size: 4em;
           transition: background-color 0.3s;
 
           &:hover {

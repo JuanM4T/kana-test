@@ -1,7 +1,7 @@
 body {
+  color: #333;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  color: #333;
 }
 
 main {
@@ -11,12 +11,12 @@ main {
 }
 
 a {
+  color: #fff;
   text-decoration: none;
-  color: white;
 }
 
 ::selection {
-  color: white;
+  color: #fff;
   background: #3498db88;
 }
 
@@ -24,17 +24,17 @@ a {
 header {
   margin: 0 1%;
 
-  > h1 {
-    margin: 0;
+  & > h1 {
     float: left;
-    background: #c35;
     text-transform: uppercase;
     color: #fff;
+    letter-spacing: 2px;
+    background: #c35;
+    margin: 0;
     padding: 20px;
     font-size: 24px;
-    line-height: 20px;
     font-weight: 800;
-    letter-spacing: 2px;
+    line-height: 20px;
 
     &.main {
       background: #349;
@@ -44,28 +44,28 @@ header {
 
 /* Counters */
 .scores {
-  margin-top: 1%;
-  position: absolute;
-  display: grid;
-  right: 1%;
   text-align: right;
+  margin-top: 1%;
+  display: grid;
+  position: absolute;
+  right: 1%;
 }
 
 .count {
-  font-size: 50px;
   color: #999;
   margin-right: 10%;
+  font-size: 50px;
 }
 
 /* Options */
 .kana-container {
-  height: calc(100vh - 120px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   -webkit-user-select: none;
   user-select: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 120px);
+  display: flex;
 }
 
 #kana-character {
@@ -74,42 +74,42 @@ header {
 }
 
 #options {
-  display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  display: flex;
 }
 
 .option {
-  margin: 10px;
-  padding: 10px 20px;
-  font-size: 24px;
   cursor: pointer;
   border: 1px solid #ccc;
   border-radius: 5px;
-  transition: all 0.3s ease;
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 24px;
+  transition: all 0.3s;
 
   &:hover {
+    color: #fff;
     background-color: #3498db;
-    color: white;
   }
 
   &.incorrect {
+    color: #fff;
     background-color: #c35;
-    color: white;
   }
 }
 
 /* Checkboxes */
 .checkboxes {
+  color: #ffd43b;
+  background-color: #222;
+  gap: 10px;
+  padding: 10px;
+  display: grid;
   position: absolute;
   top: 50%;
   right: 0;
   transform: translateY(-50%);
-  padding: 10px;
-  background-color: #222;
-  display: grid;
-  gap: 10px;
-  color: #ffd43b;
 
   &#arrow {
     cursor: pointer;

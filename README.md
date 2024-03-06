@@ -1,8 +1,21 @@
 # かなテスト (Kana test)
 
-## List
+## Running locally
 
-- [x] Hiragana
-- [x] Katakana
-- [x] Dakuon
-- [x] Combo
+1. Download yarn:
+
+   ```sh
+   npm install -g yarn
+   ```
+
+2. Install dependencies:
+
+   ```sh
+   yarn install
+   ```
+
+3. Run the website:
+
+   ```sh
+   yarn run start
+   ```

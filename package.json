@@ -1,0 +1,12 @@
+{
+  "name": "kana-test",
+  "private": true,
+  "author": "agatem",
+  "scripts": {
+    "build": "parcel build src/*.html --no-source-maps --public-url ./",
+    "start": "parcel src/*.html"
+  },
+  "devDependencies": {
+    "parcel": "^2.11.0"
+  }
+}
